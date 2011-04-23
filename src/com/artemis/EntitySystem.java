@@ -68,7 +68,9 @@ public abstract class EntitySystem {
 	 */
 	protected abstract boolean checkProcessing();
 
-	public abstract void initialize();
+	public void initialize() {
+		
+	}
 
 	/**
 	 * Called if the system has received a entity it is interested in, e.g. created or a component was added to it.
