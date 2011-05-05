@@ -16,6 +16,7 @@ public class SystemManager {
 	private World world;
 	private Map<Class<?>, EntitySystem> systems;
 	private Bag<EntitySystem> bagged;
+	private long nextSystemBits = 1;
 	
 	public SystemManager(World world) {
 		this.world = world;
@@ -25,9 +26,16 @@ public class SystemManager {
 	
 	public EntitySystem setSystem(EntitySystem system) {
 		system.setWorld(world);
+		system.setSystemBit(nextSystemBits());
 		systems.put(system.getClass(), system);
 		bagged.add(system);
 		return system;
+	}
+
+	private long nextSystemBits() {
+		long systemBits = nextSystemBits;
+		nextSystemBits *= 2;
+		return systemBits;
 	}
 	
 	public <T extends EntitySystem> T getSystem(Class<T> type) {
